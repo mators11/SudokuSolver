@@ -1,2 +1,3 @@
-# SudokuSolver
+= SudokuSolver
+
 Sudoku Solver - Python OpenCV
