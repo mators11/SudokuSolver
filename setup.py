@@ -8,7 +8,7 @@ setup(
     version = '0.1.0dev',
     author = 'SudokuSolver Contributors',
     author_email = 'mators11@gmail.com',
-    packages = find_packages(exclude=['tests']),
+    packages = find_packages(exclude=['test']),
     scripts = ['main.py'],
     url = 'http://pypi.python.org/pypi/SudokuSolver/',
     license = 'MIT License',
