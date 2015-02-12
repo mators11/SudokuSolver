@@ -1,3 +1,3 @@
-from test.unit import TestSolver, common
+from test.unit import TestSolver, common, TestFinder
 
-__all__ = ['TestSolver', 'common', ]
+__all__ = ['TestSolver', 'common', 'TestFinder', ]

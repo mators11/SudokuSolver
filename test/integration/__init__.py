@@ -1,3 +1,3 @@
-#from tests.integration import TestCli, TestXMPP
+from test.integration import TestFinder
 
-#__all__ = ['TestCli', 'TestXMPP', ]
+__all__ = ['TestFinder', ]
