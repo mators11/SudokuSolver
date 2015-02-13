@@ -160,6 +160,8 @@ def solve_all(grids, name='', showif=0.0):
             if values:
                 display(values)
             print '(%.2f seconds)\n' % t
+        if not solved(values):
+            display(grid_values(grid))
         return (t, solved(values))
     times, results = zip(*[time_solve(grid) for grid in grids])
     N = len(grids)
@@ -195,7 +197,7 @@ if __name__ == '__main__':
     #solve_all(from_file("easy50.txt", '========'), "easy", None)
     #solve_all(from_file("top95.txt"), "hard", None)
     #solve_all(from_file("hardest.txt"), "hardest", None)
-    solve_all([random_puzzle() for _ in range(99)], "random", 100.0)
+    solve_all([random_puzzle() for _ in range(1000)], "random", 1.0)
 
 ## References used:
 ## http://www.scanraid.com/BasicStrategies.htm
