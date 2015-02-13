@@ -167,6 +167,9 @@ zope=no
 # expressions are accepted.
 generated-members=REQUEST,acl_users,aq_parent
 
+# TODO Ignore numpy false-positives
+ignored-modules=numpy
+
 
 [VARIABLES]
 
