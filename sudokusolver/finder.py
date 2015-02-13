@@ -20,6 +20,7 @@ def find_square(res):
     thresh = cv2.adaptiveThreshold(res,255,0,1,19,2)
     contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     biggest = find_biggest(contours)
+    #Finds the big sudoku square
 
     kernelx = cv2.getStructuringElement(cv2.MORPH_RECT,(2,10))
 
@@ -28,7 +29,8 @@ def find_square(res):
     cv2.normalize(dx,dx,0,255,cv2.NORM_MINMAX)
     ret,close = cv2.threshold(dx,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
     close = cv2.morphologyEx(close,cv2.MORPH_DILATE,kernelx,iterations = 1)
-
+    #Creates mask
+    
     contour, hier = cv2.findContours(close,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
     for cnt in contour:
         x,y,w,h = cv2.boundingRect(cnt)
@@ -38,13 +40,15 @@ def find_square(res):
             cv2.drawContours(close,[cnt],0,0,-1)
     close = cv2.morphologyEx(close,cv2.MORPH_CLOSE,None,iterations = 2)
     closex = close.copy()
-
+    # Finds the grid in the x-axis
+    
     kernely = cv2.getStructuringElement(cv2.MORPH_RECT,(10,2))
     dy = cv2.Sobel(res,cv2.CV_16S,0,2)
     dy = cv2.convertScaleAbs(dy)
     cv2.normalize(dy,dy,0,255,cv2.NORM_MINMAX)
     ret,close = cv2.threshold(dy,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
     close = cv2.morphologyEx(close,cv2.MORPH_DILATE,kernely)
+    #Finds the grid in y axis
 
     contour, hier = cv2.findContours(close,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
     for cnt in contour:
@@ -56,9 +60,10 @@ def find_square(res):
 
     close = cv2.morphologyEx(close,cv2.MORPH_DILATE,None,iterations = 2)
     closey = close.copy()
-
+ 
     res = cv2.bitwise_and(closex,closey)
-
+    #Merges x-axis and y-axis grid to get vertexes
+    
     contour, hier = cv2.findContours(res,cv2.RETR_LIST,cv2.CHAIN_APPROX_SIMPLE)
     centroids = []
     for cnt in contour:
@@ -67,8 +72,10 @@ def find_square(res):
         centroids.append((x,y))
         
     centroids = np.array(centroids,dtype = np.float32)
-    c = centroids.reshape((101,2))
+    print np.shape(centroids)
+    c = centroids.reshape((102,2))
     c2 = c[np.argsort(c[:,1])]
+    #Extracts vertexes
 
     b = np.vstack([c2[i*10:(i+1)*10][np.argsort(c2[i*10:(i+1)*10,0])] for i in xrange(10)])
     bm = b.reshape((10,10,2))
@@ -83,7 +90,7 @@ def find_square(res):
             retval = cv2.getPerspectiveTransform(src,dst)
             warp = cv2.warpPerspective(res2,retval,(450,450))
             output[ri*50:(ri+1)*50-1 , ci*50:(ci+1)*50-1] = warp[ri*50:(ri+1)*50-1 , ci*50:(ci+1)*50-1].copy()
-    
+            #Caluclates position of each vertex in new img, and warps each square to the exact position
 
             cv2.namedWindow('Output', cv2.WINDOW_AUTOSIZE)
             cv2.imshow('Output', output)
