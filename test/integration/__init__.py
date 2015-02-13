@@ -1,3 +1,3 @@
-from test.integration import TestFinder
+from test.integration import TestFinder, TestSolver
 
-__all__ = ['TestFinder', ]
+__all__ = ['TestFinder', 'TestSolver', ]
