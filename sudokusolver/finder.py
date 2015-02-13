@@ -18,10 +18,8 @@ def pre_process(path):
 def find_square(res):
     res2 = cv2.cvtColor(res,cv2.COLOR_GRAY2BGR)
     thresh = cv2.adaptiveThreshold(res,255,0,1,19,2)
-    contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)                           
+    contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     biggest = find_biggest(contours)
-
-
 
     kernelx = cv2.getStructuringElement(cv2.MORPH_RECT,(2,10))
 
@@ -30,7 +28,7 @@ def find_square(res):
     cv2.normalize(dx,dx,0,255,cv2.NORM_MINMAX)
     ret,close = cv2.threshold(dx,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
     close = cv2.morphologyEx(close,cv2.MORPH_DILATE,kernelx,iterations = 1)
-    
+
     contour, hier = cv2.findContours(close,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
     for cnt in contour:
         x,y,w,h = cv2.boundingRect(cnt)
