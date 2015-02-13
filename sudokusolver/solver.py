@@ -2,9 +2,18 @@
 # encoding: utf-8
 
 import sudokusolver.sudoku_inet as inet
-from sudokusolver.common import from_vals, to_grid, to_str
+from sudokusolver.common import from_vals, to_grid, to_str, from_grid
 
-# TODO implement this
+def __is_valid(sudoku):
+    return None
+
+def __is_complete(sudoku):
+    for i in range(9):
+        for j in range(9):
+            if sudoku[i][j] == 0:
+                return False
+    return True
+
 def solve_backtrack(sudoku):
     for i in range(len(sudoku)):
         for j in range(len(sudoku[i])):
@@ -22,16 +31,21 @@ def solve_inet(sudoku):
     #inet.display(vals)
     return from_vals(vals)
 
-easy = [
-            [1, 2, 0, 0, 0, 9, 0, 8, 0],
-            [3, 0, 4, 8, 0, 0, 9, 0, 2],
-            [0, 8, 9, 0, 0, 0, 7, 0, 0],
-            [0, 4, 0, 0, 1, 5, 8, 0, 0],
-            [8, 1, 0, 0, 0, 0, 3, 0, 9],
-            [7, 0, 0, 0, 3, 8, 0, 0, 4],
-            [4, 0, 0, 7, 0, 0, 5, 3, 0],
-            [2, 0, 0, 0, 0, 0, 0, 4, 1],
-            [0, 0, 5, 0, 8, 0, 2, 0, 7]
-        ]
-solution = solve_inet(easy)
-print(to_str(solution))
+# Norvig
+def random_puzzle():
+    return from_grid(inet.random_puzzle())
+
+if __name__ == '__main__':
+    easy = [
+                [1, 2, 0, 0, 0, 9, 0, 8, 0],
+                [3, 0, 4, 8, 0, 0, 9, 0, 2],
+                [0, 8, 9, 0, 0, 0, 7, 0, 0],
+                [0, 4, 0, 0, 1, 5, 8, 0, 0],
+                [8, 1, 0, 0, 0, 0, 3, 0, 9],
+                [7, 0, 0, 0, 3, 8, 0, 0, 4],
+                [4, 0, 0, 7, 0, 0, 5, 3, 0],
+                [2, 0, 0, 0, 0, 0, 0, 4, 1],
+                [0, 0, 5, 0, 8, 0, 2, 0, 7]
+            ]
+    solution = solve_inet(easy)
+    print(to_str(solution))

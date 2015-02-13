@@ -20,6 +20,15 @@ def to_grid(sudoku):
                 grid = grid + str(sudoku[i][j])
     return grid
 
+def from_grid(grid):
+    sudoku = []
+    for i in range(9):
+        line = []
+        for j in range(9):
+            line.append(grid[i*9+j])
+        sudoku.append(line)
+    return sudoku
+
 def from_vals_to_grid(vals):
     return to_grid(from_vals(vals))
 

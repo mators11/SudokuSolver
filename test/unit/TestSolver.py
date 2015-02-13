@@ -21,6 +21,18 @@ inputList = [
             [2, 0, 0, 0, 0, 0, 0, 4, 1],
             [0, 0, 5, 0, 8, 0, 2, 0, 7]
         ],
+        #MEDIUM
+        [
+            [6, 0, 0, 0, 4, 0, 0, 0, 0],
+            [0, 0, 3, 0, 0, 1, 0, 4, 0],
+            [0, 0, 4, 3, 7, 0, 0, 9, 2],
+            [7, 0, 0, 0, 0, 0, 3, 0, 0],
+            [1, 0, 0, 7, 3, 4, 0, 0, 8],
+            [0, 0, 5, 0, 0, 0, 0, 0, 1],
+            [8, 5, 0, 0, 9, 2, 6, 0, 0],
+            [0, 6, 0, 8, 0, 0, 2, 0, 0],
+            [0, 0, 0, 0, 5, 0, 0, 0, 7]
+        ],
         #HARD
         [
             [5, 3, 0, 0, 7, 0, 0, 0, 0],
@@ -48,6 +60,18 @@ solutionList = [
             [2, 7, 8, 5, 9, 3, 6, 4, 1],
             [6, 3, 5, 4, 8, 1, 2, 9, 7]
         ],
+        #MEDIUM
+        [
+            [6, 7, 1, 2, 4, 9, 8, 3, 5],
+            [9, 2, 3, 5, 8, 1, 7, 4, 6],
+            [5, 8, 4, 3, 7, 6, 1, 9, 2],
+            [7, 4, 8, 1, 2, 5, 3, 6, 9],
+            [1, 9, 6, 7, 3, 4, 5, 2, 8],
+            [2, 3, 5, 9, 6, 8, 4, 7, 1],
+            [8, 5, 7, 4, 9, 2, 6, 1, 3],
+            [3, 6, 9, 8, 1, 7, 2, 5, 4],
+            [4, 1, 2, 6, 5, 3, 9, 8, 7]
+        ],
         #HARD
         [
             [5, 3, 4, 6, 7, 8, 9, 1, 2],
@@ -69,9 +93,16 @@ def solutions(solverfunc):
     for i in range(len(inputList)):
         eq_(solverfunc(inputList[i]), solutionList[i])
 
+def randomTests(solverfunc):
+    for i in range(100):
+        sudoku = solver.random_puzzle()
+        eq_(solverfunc(sudoku), solver.solve_inet(sudoku)) # Compare with reference implementation
+
 #def test_solve_backtrack():
 #    solutions(solver.solve_backtrack)
+#    randomTests(solver.solve_backtrack)
 
 def test_solve_inet():
     solutions(solver.solve_inet)
+    randomTests(solver.solve_inet) # TODO obviously true
 
