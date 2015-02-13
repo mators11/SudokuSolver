@@ -87,22 +87,34 @@ solutionList = [
         ]
 
 
+def test_is_valid():
+    for i in range(len(solutionList)):
+        ok_(solver.__is_valid(solutionList[i]))
+    for i in range(len(inputList)):
+        ok_(solver.__is_valid(inputList[i]))
 
+def test_is_valid_squares():
+    case =  [
+            [1, 2, 0, 0, 0, 9, 0, 8, 0],
+            [3, 0, 4, 8, 0, 0, 9, 0, 2],
+            [0, 8, 1, 0, 0, 0, 7, 0, 0],
+            [0, 4, 0, 0, 1, 5, 8, 0, 0],
+            [8, 1, 0, 0, 0, 0, 3, 0, 9],
+            [7, 0, 0, 0, 3, 8, 0, 0, 4],
+            [4, 0, 0, 7, 0, 0, 5, 3, 0],
+            [2, 0, 0, 0, 0, 0, 0, 4, 1],
+            [0, 0, 5, 0, 8, 0, 2, 0, 7]
+            ]
+    ok_(not solver.__is_valid(case))
 
 def solutions(solverfunc):
     for i in range(len(inputList)):
+        print(i)
         eq_(solverfunc(inputList[i]), solutionList[i])
 
-def randomTests(solverfunc):
-    for i in range(100):
-        sudoku = solver.random_puzzle()
-        eq_(solverfunc(sudoku), solver.solve_inet(sudoku)) # Compare with reference implementation
-
-#def test_solve_backtrack():
-#    solutions(solver.solve_backtrack)
-#    randomTests(solver.solve_backtrack)
+def test_solve_backtrack():
+    solutions(solver.solve_backtrack)
 
 def test_solve_inet():
     solutions(solver.solve_inet)
-    randomTests(solver.solve_inet) # TODO obviously true
 

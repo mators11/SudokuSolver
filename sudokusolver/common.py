@@ -2,6 +2,9 @@
 # encoding: utf-8
 
 def from_vals(vals):
+    if not vals: #Unsolved
+        return False
+
     sudoku = []
     for i in range(9):
         line = []
@@ -25,7 +28,11 @@ def from_grid(grid):
     for i in range(9):
         line = []
         for j in range(9):
-            line.append(grid[i*9+j])
+            val = grid[i * 9 + j]
+            if val == '.':
+                line.append(0)
+            else:
+                line.append(grid[i*9+j])
         sudoku.append(line)
     return sudoku
 
@@ -36,6 +43,8 @@ def to_str_vals(vals):
     return to_str(from_vals(vals))
 
 def to_str(sudoku):
+    if sudoku == False:
+        return 'Unsolved'
     out = ''
     for i in range(9):
         for j in range(9):
