@@ -113,6 +113,14 @@ def solve_inet(sudoku):
 def random_puzzle():
     return from_grid(inet.random_puzzle())
 
+# Combination of methods
+def solve(sudoku):
+    sol = solve_inet(sudoku)
+    if not sol:
+        # TODO faster backtracking
+        return False
+    return sol
+
 if __name__ == '__main__':
     easy = [
                 [1, 2, 0, 0, 0, 9, 0, 8, 0],
@@ -125,5 +133,5 @@ if __name__ == '__main__':
                 [2, 0, 0, 0, 0, 0, 0, 4, 1],
                 [0, 0, 5, 0, 8, 0, 2, 0, 7]
             ]
-    solution = solve_backtrack(easy)
+    solution = solve_backtrack(easy, debug=True)
     print(to_str(solution))

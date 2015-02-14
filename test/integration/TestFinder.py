@@ -6,7 +6,7 @@ from test.unit.common import *
 
 from nose.tools import ok_, eq_
 
-# TODO
+# TODO Finish test for finder
 def test_images():
     image1 = 'img/test_sudoku1.jpg'
     img = finder.pre_process(image1)

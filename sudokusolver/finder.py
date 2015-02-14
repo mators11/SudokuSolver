@@ -117,6 +117,9 @@ def find_biggest(contours):
                 max_area = area
     return biggest
 
+# TODO implement this
+def find_sudoku(path):
+    return None # returns a list of lists the sudoku puzzle read from image at path)
 
 if __name__ == '__main__':
     test_image = pre_process('../img/test_sudoku1.jpg')
