@@ -18,7 +18,7 @@ def pre_process(path):
     return res
 
 
-def find_square(res):
+def find_squares(res):
 
     # Finds the big sudoku square
     res2 = cv2.cvtColor(res, cv2.COLOR_GRAY2BGR)
@@ -73,14 +73,7 @@ def find_square(res):
         mom = cv2.moments(cnt)
         (x, y) = (int(mom['m10'] / mom['m00']), int(mom['m01'] / mom['m00']))
         centroids.append((x, y))
-        cv2.drawContours(res2,[cnt],0,(0,0,255),-1)
-##        cv2.namedWindow('Output', cv2.WINDOW_AUTOSIZE)
-##        cv2.imshow('Output', res2)
-##        cv2.waitKey()
-##        cv2.destroyAllWindows()
-
     centroids = np.array(centroids, dtype=np.float32)
-    #print np.shape(centroids)
     c = centroids.reshape((101, 2))
 
 
@@ -105,11 +98,11 @@ def find_square(res):
             warp = cv2.warpPerspective(res2, retval, (450, 450))
             output[ri * 50:(ri + 1) * 50 - 1, ci * 50:(ci + 1) * 50 - 1] = warp[ri * 50:(ri + 1) * 50 - 1, ci * 50:(ci + 1) * 50 - 1].copy()
 
-            # Show the output in a window
-            cv2.namedWindow('Output', cv2.WINDOW_AUTOSIZE)
-            cv2.imshow('Output', output)
-            cv2.waitKey()
-            cv2.destroyAllWindows()
+        # Show the output in a window
+        cv2.namedWindow('Output', cv2.WINDOW_AUTOSIZE)
+        cv2.imshow('Output', output)
+        cv2.waitKey()
+        cv2.destroyAllWindows()
 
     return output
 
