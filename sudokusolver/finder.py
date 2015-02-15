@@ -22,7 +22,7 @@ def find_square(res):
 
     # Finds the big sudoku square
     res2 = cv2.cvtColor(res, cv2.COLOR_GRAY2BGR)
-    thresh = cv2.adaptiveThreshold(res, 255, 0, 1, 19, 2,)
+    thresh = cv2.adaptiveThreshold(res, 255, 0, 1, 19, 30)
     (contours, hierarchy) = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     biggest = find_biggest(contours)
 
@@ -73,15 +73,25 @@ def find_square(res):
         mom = cv2.moments(cnt)
         (x, y) = (int(mom['m10'] / mom['m00']), int(mom['m01'] / mom['m00']))
         centroids.append((x, y))
+        cv2.drawContours(res2,[cnt],0,(0,0,255),-1)
+##        cv2.namedWindow('Output', cv2.WINDOW_AUTOSIZE)
+##        cv2.imshow('Output', res2)
+##        cv2.waitKey()
+##        cv2.destroyAllWindows()
 
     centroids = np.array(centroids, dtype=np.float32)
-    print np.shape(centroids)
-    c = centroids.reshape((102, 2))
+    #print np.shape(centroids)
+    c = centroids.reshape((101, 2))
+
+
+
     c2 = c[np.argsort(c[:, 1])]
 
     b = np.vstack([c2[i * 10:(i + 1) * 10][np.argsort(c2[i * 10:(i + 1) * 10, 0])] for i in xrange(10)])
     bm = b.reshape((10, 10, 2))
-
+    bm = average_fix(bm)
+    print bm
+    
     output = np.zeros((450, 450, 3), np.uint8)
     for (i, j) in enumerate(b):
         ri = i / 10
@@ -117,6 +127,20 @@ def find_biggest(contours):
                 max_area = area
     return biggest
 
+def average_fix(a):
+    sCols = 0
+    sRows = 0
+    # Cols
+    for i in xrange(10):
+        for j in xrange(10):
+            sCols += a[i][j][1]
+            sRows += a[j][i][0]
+        for j in xrange(10):
+            a[i][j][1] = round(sCols/10)
+            a[j][i][0] = round(sRows/10)
+        sCols = 0
+        sRows = 0    
+    return a
 
 if __name__ == '__main__':
     test_image = pre_process('../img/test_sudoku1.jpg')
