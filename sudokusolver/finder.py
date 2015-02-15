@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # encoding: utf-8
+
 import cv2
 import numpy as np
 
@@ -22,7 +23,7 @@ def find_squares(res):
 
     # Finds the big sudoku square
     res2 = cv2.cvtColor(res, cv2.COLOR_GRAY2BGR)
-    thresh = cv2.adaptiveThreshold(res, 255, 0, 1, 19, 30)
+    thresh = cv2.adaptiveThreshold(res, 255, 0, 1, 19, 30,)
     (contours, hierarchy) = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     biggest = find_biggest(contours)
 
@@ -76,20 +77,19 @@ def find_squares(res):
     centroids = np.array(centroids, dtype=np.float32)
     c = centroids.reshape((101, 2))
 
-
-
     c2 = c[np.argsort(c[:, 1])]
 
     b = np.vstack([c2[i * 10:(i + 1) * 10][np.argsort(c2[i * 10:(i + 1) * 10, 0])] for i in xrange(10)])
     bm = b.reshape((10, 10, 2))
     bm = average_fix(bm)
-    print bm
-    
+    #print(bm)
+
     output = np.zeros((450, 450, 3), np.uint8)
     for (i, j) in enumerate(b):
         ri = i / 10
         ci = i % 10
         if ci != 9 and ri != 9:
+
             # Calculates position of each vertex in new img, and warps each square to the exact position
             src = bm[ri:ri + 2, ci:ci + 2, :].reshape((4, 2))
             dst = np.array([[ci * 50, ri * 50], [(ci + 1) * 50 - 1, ri * 50], [ci * 50, (ri + 1) * 50 - 1], [(ci + 1) * 50 - 1, (ri + 1)
@@ -120,27 +120,29 @@ def find_biggest(contours):
                 max_area = area
     return biggest
 
+
 def average_fix(a):
     sCols = 0
     sRows = 0
-    # Cols
+
     for i in xrange(10):
         for j in xrange(10):
             sCols += a[i][j][1]
             sRows += a[j][i][0]
         for j in xrange(10):
-            a[i][j][1] = round(sCols/10)
-            a[j][i][0] = round(sRows/10)
+            a[i][j][1] = round(sCols / 10)
+            a[j][i][0] = round(sRows / 10)
         sCols = 0
-        sRows = 0    
+        sRows = 0
     return a
+
 
 # TODO implement this
 def find_sudoku(path):
-    return None # returns a list of lists the sudoku puzzle read from image at path)
+    return None  # returns a list of lists the sudoku puzzle read from image at path)
+
 
 if __name__ == '__main__':
     test_image = pre_process('../img/test_sudoku1.jpg')
-    test_square = find_square(test_image)
-
+    test_square = find_squares(test_image)
 
