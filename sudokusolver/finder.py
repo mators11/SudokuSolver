@@ -142,7 +142,12 @@ def average_fix(a):
         sRows = 0    
     return a
 
+# TODO implement this
+def find_sudoku(path):
+    return None # returns a list of lists the sudoku puzzle read from image at path)
+
 if __name__ == '__main__':
     test_image = pre_process('../img/test_sudoku1.jpg')
     test_square = find_square(test_image)
+
 

@@ -18,5 +18,5 @@ def random_tests(solverfunc):
 #    random_tests(solver.solve_backtrack)
 
 def test_solve_inet_random():
-    random_tests(solver.solve_inet) # TODO obviously true
+    random_tests(solver.solve_inet) # obviously true
 
