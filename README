@@ -2,29 +2,29 @@
 SudokuSolver
 ============
 
-.. image:: https://travis-ci.org/mators11/SudokuSolver.svg?branch=master
+.. .. image:: https://travis-ci.org/mators11/SudokuSolver.svg?branch=master
     :target: https://travis-ci.org/mators11/SudokuSolver
     :alt: TravisCI
 
-.. image:: https://coveralls.io/repos/mators11/SudokuSolver/badge.png?branch=master
+.. .. image:: https://coveralls.io/repos/mators11/SudokuSolver/badge.png?branch=master
     :target: https://coveralls.io/r/mators11/SudokuSolver?branch=master
     :alt: Coveralls
 
-.. image:: https://pypip.in/v/SudokuSolver/badge.png
+.. .. image:: https://pypip.in/v/SudokuSolver/badge.png
     :target: https://pypi.python.org/pypi/SudokuSolver/
     :alt: Latest Version
 
-.. image:: https://pypip.in/d/SudokuSolver/badge.png
+.. .. image:: https://pypip.in/d/SudokuSolver/badge.png
     :target: https://pypi.python.org/pypi/SudokuSolver/
     :alt: Downloads
 
-.. image:: https://pypip.in/license/SudokuSolver/badge.png
+.. .. image:: https://pypip.in/license/SudokuSolver/badge.png
     :target: https://pypi.python.org/pypi/SudokuSolver/
     :alt: License
 
 A Sudoku Solver
 
-.. image:: http://cdn.imghack.se/images/47f573797aea70092c62defa3a35b3fe.png
+.. .. image:: http://cdn.imghack.se/images/47f573797aea70092c62defa3a35b3fe.png
     :alt: SudokuSolver snapshot
 
 Building
