@@ -76,6 +76,8 @@ def solve_backtrack(sudoku, debug=False):
         solutions.append(copy.deepcopy(sudoku))
 
     def rec_solve(sudoku):
+        if solutions:
+            return None # Exit out of recursion in case we found something
         if debug:
             print(to_str(sudoku))
             raw_input()
