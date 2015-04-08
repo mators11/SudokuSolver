@@ -75,7 +75,7 @@ Here are some ways *you* can contribute:
 Info
 ====
 
-CryptoIM uses `semantic versioning <http://semver.org/>`_.
+SudokuSolver uses `semantic versioning <http://semver.org/>`_.
 
 Submitting an Issue
 ===================
